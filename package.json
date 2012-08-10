@@ -19,7 +19,7 @@
     "hubot-scripts": ">= 2.1.0",
     "optparse": "1.0.3",
     "hubot-flowdock": ">= 0.2.0",
-    "oauth": "0.9.8"
+    "jsdom": "0.2.14"
   },
 
   "engines": {
