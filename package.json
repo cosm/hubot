@@ -18,7 +18,8 @@
     "hubot": "2.3.2",
     "hubot-scripts": ">= 2.1.0",
     "optparse": "1.0.3",
-    "hubot-flowdock": ">= 0.2.0"
+    "hubot-flowdock": ">= 0.2.0",
+    "oauth": "0.9.8"
   },
 
   "engines": {
