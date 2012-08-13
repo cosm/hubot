@@ -16,7 +16,7 @@
 
   "dependencies": {
     "hubot": "2.3.2",
-    "hubot-scripts": "2.1.1",
+    "hubot-scripts": "git://github.com/github/hubot-scripts.git",
     "optparse": "1.0.3",
     "hubot-flowdock": ">= 0.2.0",
     "jsdom": "0.2.14"
