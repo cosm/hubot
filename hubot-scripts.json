@@ -1,2 +1,2 @@
 ["redis-brain.coffee", "tweet.coffee", "shipit.coffee", "travis.coffee",
-  "weather.coffee", "auth.coffee", "agileista.coffee", "hubot-airbrake.js"]
+  "weather.coffee", "auth.coffee", "agileista.coffee", "airbrake.coffee"]
