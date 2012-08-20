@@ -19,9 +19,7 @@
     "hubot-scripts": "git://github.com/smulube/hubot-scripts.git",
     "optparse": "1.0.3",
     "hubot-flowdock": ">= 0.2.0",
-    "jsdom": "0.2.14",
-    "request": "2.9.x",
-    "xml2json": "0.2.4"
+    "jsdom": "0.2.14"
   },
 
   "engines": {
