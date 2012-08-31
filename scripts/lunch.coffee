@@ -21,7 +21,7 @@
 #   hubot where should simon eat salad?
 
 officeAddress = process.env.HUBOT_LUNCH_ADDRESS
-radius = process.env.HUBOT_LUNCH_RADIUS || 600
+radius = process.env.HUBOT_LUNCH_RADIUS or 600
 
 consumer_key = process.env.HUBOT_LUNCH_YELP_CONSUMER_KEY
 consumer_secret = process.env.HUBOT_LUNCH_YELP_CONSUMER_SECRET
