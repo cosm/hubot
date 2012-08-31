@@ -36,11 +36,11 @@ eatAt = (msg, query) ->
 
 module.exports = (robot) ->
   whosOn = (msg, cb) ->
-    robot.whosOff msg, (who, err) ->
+    robot.whosOff msg, (missing, err) ->
       present = robot.brain.data.users
       if err == null
-        present = present.filter (name) ->
-          own[name] != null
+        for own full_name in missing
+          present.delete(full_name.split(' ')[0])
       cb present
 
   findUsers = (msg, username, cb) ->
