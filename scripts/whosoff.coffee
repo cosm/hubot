@@ -13,23 +13,38 @@
 # Author:
 #   smulube
 
+calendarUrl = () ->
+  calendar_id = process.env.HUBOT_WHOSOFF_CALENDAR_ID
+  "https://staff.whosoff.com/feeds/?u=#{calendar_id}"
+
 module.exports = (robot) ->
   ical = require("icalendar")
-  robot.respond /who'?s\s?off(\stoday)?/i, (msg) ->
-    calendar_id = process.env.HUBOT_WHOSOFF_CALENDAR_ID
-    calendar_url = "https://staff.whosoff.com/feeds/?u=#{calendar_id}"
+  robot.whosOff = (msg, cb) ->
     today = new Date
     tomorrow = new Date(today.getTime() + 86400)
 
-    msg.http(calendar_url)
+    msg.http(calendarUrl())
       .get() (err, res, body) ->
         if res.statusCode == 200
           calendar = ical.parse_calendar(body)
+          who = {}
           for event in calendar.events()
             if event.inTimeRange(today, tomorrow)
               data = [event.getPropertyValue("SUMMARY"),
                 event.getPropertyValue("CATEGORIES")].join(" - ")
               date = new Date(event.getPropertyValue("DTEND"))
-              msg.send "    #{data} until #{date.toDateString()}"
+              who[data] = {until: date}
+
+          cb who, null
         else
-          msg.send "Unable to load calendar from url: #{calendar_url}"
+          cb null, err
+
+  robot.respond /who'?s\s?off(\stoday)?/i, (msg) ->
+    robot.whosOff msg, (who, error) ->
+      if error != null
+        msg.send "Unable to load calendar from url: #{calendarUrl()}"
+      else
+        lines = []
+        for own name, props in who
+          lines.push "    #{name} until #{props.until.toDateString()}"
+          msg.send lines.join('\n')
