@@ -1,6 +1,17 @@
 # Description:
 #   Suggestions where you should eat
 #
+# Dependencies:
+#   None
+#
+# Configuration:
+#   HUBOT_LUNCH_YELP_CONSUMER_KEY
+#   HUBOT_LUNCH_YELP_CONSUMER_SECRET
+#   HUBOT_LUNCH_YELP_TOKEN
+#   HUBOT_LUNCH_YELP_TOKEN_SECRET
+#   HUBOT_LUNCH_ADDRESS
+#   HUBOT_LUNCH_RADIUS
+#
 # Commands:
 #   hubot where should I eat <query>
 #
@@ -9,10 +20,15 @@
 #   hubot where should we go for thai
 #   hubot where should simon eat salad?
 
-officeAddress = "EC2A 3LT"
-radius = 600 # meters
+officeAddress = process.env.HUBOT_LUNCH_ADDRESS
+radius = process.env.HUBOT_LUNCH_RADIUS or 600
 
-yelp = require("yelp").createClient consumer_key: "8AWqlP20TDC1Bi2lMyeg2Q", consumer_secret: "Pj8d79VVotDEUbIZ5RI6nm2oTMI", token: "dcdR3RC_UUm1CB7NxePRPMpNB_d0xHaa", token_secret: "W0IK1K0xqPNTRKZ4jJQy4tSPgOw"
+consumer_key = process.env.HUBOT_LUNCH_YELP_CONSUMER_KEY
+consumer_secret = process.env.HUBOT_LUNCH_YELP_CONSUMER_SECRET
+token = process.env.HUBOT_LUNCH_YELP_TOKEN
+token_secret = process.env.HUBOT_LUNCH_YELP_TOKEN_SECRET
+
+yelp = require("yelp").createClient consumer_key: consumer_key, consumer_secret: consumer_secret, token: token, token_secret: token_secret
 
 _ = require("underscore")
 
