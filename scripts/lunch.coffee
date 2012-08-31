@@ -36,7 +36,7 @@ eatAt = (msg, query) ->
 
 module.exports = (robot) ->
   whosOn = (msg, cb) ->
-    robot.whosOff msg, (who) ->
+    robot.whosOff msg, (who, err) ->
       present = robot.brain.data.users
       if err == null
         present = present.filter (name) ->
