@@ -1,4 +1,4 @@
 ["redis-brain.coffee", "tweet.coffee", "shipit.coffee", "travis.coffee",
-  "weather.coffee", "auth.coffee", "agileista.coffee", "airbrake.coffee",
-  "github-pulls.coffee", "github-credentials.coffee", "xkcd.coffee",
-  "goodbad.coffee", "hangman.coffee", "isup.coffee"]
+  "weather.coffee", "auth.coffee", "airbrake.coffee", "github-pulls.coffee",
+  "github-credentials.coffee", "xkcd.coffee", "goodbad.coffee",
+  "hangman.coffee", "isup.coffee"]
