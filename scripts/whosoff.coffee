@@ -29,6 +29,7 @@ module.exports = (robot) ->
             if event.inTimeRange(today, tomorrow)
               data = [event.getPropertyValue("SUMMARY"),
                 event.getPropertyValue("CATEGORIES")].join(" - ")
-              msg.send "#{data} until #{event.getPropertyValue("DTEND")}"
+              date = new Date(event.getPropertyValue("DTEND"))
+              msg.send "    #{data} until #{date.toDateString()}"
         else
           msg.send "Unable to load calendar from url: #{calendar_url}"
