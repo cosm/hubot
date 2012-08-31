@@ -48,7 +48,7 @@ module.exports = (robot) ->
       username = msg.message.user.name
 
     if username.match(/^we$/i)
-      whosOn(cb)
+      whosOn(msg, cb)
     else
       cb robot.usersForFuzzyName(username)
 
