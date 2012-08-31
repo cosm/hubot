@@ -19,7 +19,7 @@ calendarUrl = () ->
 
 module.exports = (robot) ->
   ical = require("icalendar")
-  robot.whosOff = (msg) ->
+  robot.whosOff = (msg, cb) ->
     today = new Date
     tomorrow = new Date(today.getTime() + 86400)
 
