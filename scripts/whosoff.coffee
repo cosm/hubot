@@ -25,13 +25,13 @@ module.exports = (robot) ->
       .get() (err, res, body) ->
         if res.statusCode == 200
           calendar = ical.parse_calendar(body)
-          off = []
+          lines = []
           for event in calendar.events()
             if event.inTimeRange(today, tomorrow)
               data = [event.getPropertyValue("SUMMARY"),
                 event.getPropertyValue("CATEGORIES")].join(" - ")
               date = new Date(event.getPropertyValue("DTEND"))
-              off.push "    #{data} until #{date.toDateString()}"
-          msg.send off.join('\n')
+              lines.push "    #{data} until #{date.toDateString()}"
+          msg.send lines.join('\n')
         else
           msg.send "Unable to load calendar from url: #{calendar_url}"
