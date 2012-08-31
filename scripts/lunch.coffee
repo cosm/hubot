@@ -35,39 +35,48 @@ _ = require("underscore")
 eatAt = (msg, query) ->
 
 module.exports = (robot) ->
-  findUsers = (msg, username) ->
+  whosOn = (msg, cb) ->
+    robot.whosOff msg, (who) ->
+      present = robot.brain.data.users
+      if err == null
+        present = present.filter (name) ->
+          own[name] != null
+      cb present
+
+  findUsers = (msg, username, cb) ->
     if username.match(/^i$/i)
       username = msg.message.user.name
 
     if username.match(/^we$/i)
-      robot.brain.data.users # Hook this into Whosoff!
+      whosOn(cb)
     else
-      robot.usersForFuzzyName(username)
+      cb robot.usersForFuzzyName(username)
 
-  dietaryRestrictions = (msg, username) ->
-    users = findUsers(msg, username)
-    restrictions = []
-    for own key, user of users
-      for own i, role of user.roles
-        if String(role).match(/vegetarian/i)
-          restrictions.push("vegetarian")
-        if String(role).match(/vegan/i)
-          restrictions.push("vegan")
+  dietaryRestrictions = (msg, username, cb) ->
+    findUsers msg, username, (users) ->
+      restrictions = []
+      for own key, user of users
+        for own i, role of user.roles
+          if String(role).match(/vegetarian/i)
+            restrictions.push("vegetarian")
+          if String(role).match(/vegan/i)
+            restrictions.push("vegan")
 
-    _.uniq(restrictions, false, _.identity).join(' ')
+      cb _.uniq(restrictions, false, _.identity).join(' ')
 
-  robot.respond /where should (\w+) (eat|go for)(.*)/i, (msg) ->
-    query = msg.match[3]
+  robot.respond /where should (\w+) ((go to )?eat|go for)(.*)/i, (msg) ->
+    query = msg.match.slice(-1)[0]
     query = query.replace(/^\s+|\s+$|[!\?]+$/g, '')
     query = "food" if (typeof query == "undefined" || query == "")
-    query = dietaryRestrictions(msg, msg.match[1]) + " " + query
-    # msg.send("Query: "+query)
-    yelp.search term: query, radius_filter: radius, sort: 2, limit: 20, location: officeAddress, (error, data) ->
-      if error != null
-        return msg.send "There was an error finding food. So hungry..."
+    dietaryRestrictions msg, msg.match[1], (restrictions) ->
+      query = restrictions + " " + query
+      # msg.send("Query: "+query)
+      yelp.search term: query, radius_filter: radius, sort: 2, limit: 20, location: officeAddress, (error, data) ->
+        if error != null
+          return msg.send "There was an error finding food. So hungry..."
 
-      if data.total == 0
-        return msg.send "I couldn't find any food for you. Good Luck!"
+        if data.total == 0
+          return msg.send "I couldn't find any food for you. Good Luck!"
 
-      business = data.businesses[Math.floor(Math.random() * data.businesses.length)]
-      msg.send "How about "+business.name+"? "+business.url
+        business = data.businesses[Math.floor(Math.random() * data.businesses.length)]
+        msg.send "How about "+business.name+"? "+business.url
