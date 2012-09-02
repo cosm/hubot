@@ -58,9 +58,11 @@ module.exports = (robot) ->
       else
         count = if data.total > data.count then data.count else data.total
         msg.send "Here are the #{count} oldest cases in the '#{status}' state of a total #{data.total}:"
+        lines = []
         for result in data.results
           ticket = "#{result.case.subject}"
           ticket += " - originally assigned to #{result.case.user.name}" if result.case.user
           ticket += ". Case last updated #{timeago(new Date(result.case.updated_at))}" if result.case.updated_at
           ticket += " (http://#{subdomain}.desk.com/agent/case/#{result.case.id})"
-          msg.send ticket
+          lines.push ticket
+        msg.send lines.join("\n")
