@@ -22,7 +22,9 @@
     "jsdom": "0.2.14",
     "githubot": "0.2.0",
     "icalendar": "0.6.3",
-    "yelp": "0.1.1"
+    "yelp": "0.1.1",
+    "desk": "git://github.com/smulube/node-desk.git#fc30ba91b6",
+    "timeago": "0.1.0"
   },
 
   "engines": {
