@@ -2,7 +2,7 @@
 #   Suggestions where you should eat
 #
 # Dependencies:
-#   None
+#   "yelp": "0.1.1"
 #
 # Configuration:
 #   HUBOT_LUNCH_YELP_CONSUMER_KEY
