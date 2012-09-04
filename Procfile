@@ -1,1 +1,1 @@
-app: bin/hubot -a flowdock -n hubot
+web: bin/hubot -a flowdock -n hubot

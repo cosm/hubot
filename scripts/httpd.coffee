@@ -11,10 +11,10 @@
 #   None
 #
 # URLS:
-#   /hubot/version
-#   /hubot/ping
-#   /hubot/time
-#   /hubot/info
+#   /hubot/version - GET
+#   /hubot/ping - POST
+#   /hubot/time - GET
+#   /hubot/info - INFO
 
 spawn = require('child_process').spawn
 
@@ -35,3 +35,17 @@ module.exports = (robot) ->
     child.stdout.on 'data', (data) ->
       res.end "#{data.toString().trim()} running node #{process.version} [pid: #{process.pid}]"
       child.stdin.end()
+
+  robot.router.post "/hubot/broadcast", (req, res) ->
+    room = req.body.room
+    message = req.body.message
+    if message
+      user = robot.userForId 'broadcast'
+      if room
+        user.room = room
+      robot.send user, message
+      res.writeHead 200, {'Content-Type': 'text/plain'}
+      res.end 'OK\n'
+    else
+      res.writeHead 400, {'Content-Type': 'text/plain'}
+      res.end 'No Message\n'
