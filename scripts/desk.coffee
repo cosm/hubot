@@ -13,12 +13,10 @@
 #   HUBOT_DESK_TOKEN_SECRET
 #
 # Commands:
-#   hubot how many support
-#   hubot how many pending support cases
-#   hubot how many new,open support tickets
-#   hubot show me support
-#   hubot show me pending support cases
-#   hubot show me new,open support tickets
+#   hubot how many support - default status is: new,open
+#   hubot how many <status> support cases, e.g. hubot how many new,open support tickets
+#   hubot show me support - default status is: new,open
+#   hubot show me <status> support cases, e.g. hubot show me new,open support tickets
 
 subdomain = process.env.HUBOT_DESK_SUBDOMAIN
 consumer_key = process.env.HUBOT_DESK_CONSUMER_KEY
