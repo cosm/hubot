@@ -38,10 +38,10 @@ module.exports = (robot) ->
     # msg.send("Query: "+query)
     yelp.search term: query, radius_filter: radius, sort: 2, limit: 20, location: officeAddress, (error, data) ->
       if error != null
-        return msg.send "There was an error finding food. So hungry..."
+        return msg.send "There was an error finding #{query}. So hungry..."
 
       if data.total == 0
-        return msg.send "I couldn't find any food for you. Good Luck!"
+        return msg.send "I couldn't find any #{query} for you. Good Luck!"
 
       business = data.businesses[Math.floor(Math.random() * data.businesses.length)]
       msg.send "How about "+business.name+"? "+business.url
