@@ -1,4 +1,5 @@
 ["redis-brain.coffee", "tweet.coffee", "travis.coffee", "weather.coffee",
   "auth.coffee", "airbrake.coffee", "github-pulls.coffee",
   "github-credentials.coffee", "xkcd.coffee", "goodbad.coffee", "isup.coffee",
+  "tasks.coffee",
   "hangman.coffee"]
