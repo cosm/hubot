@@ -44,23 +44,23 @@ class PingdomClient
     my = this
     my.request msg, 'checks', (response) ->
       if response.checks.length > 0
-        lines = []
+        lines = ["Here are the Pingdom checks:"]
         for check in response.checks
           lines.push "    #{check.name}. Status: #{check.status}. Last response time: #{check.lastresponsetime}ms"
         msg.send lines.join('\n')
       else
-        msg.send "    No checks found"
+        msg.send "No checks found"
 
   actions: (msg) ->
     my = this
     my.request msg, 'actions?limit=10', (response) ->
       if response.actions.length > 0
-        lines = []
+        lines = ["Here are the most recent 10 Pingdodm alerts:"]
         for alert in response.actions
           lines.push "    At: #{new Date(alert.time).toISOString()}. Message: #{alert.messagefull}"
         msg.send lines.join('\n')
       else
-        msg.send "    No alerts found"
+        msg.send "No alerts found"
 
   request: (msg, url, handler) ->
     auth = new Buffer("#{@username}:#{@password}").toString('base64')
