@@ -44,7 +44,7 @@ class PingdomClient
     my = this
     my.request msg, 'checks', (response) ->
       if response.checks.length > 0
-        lines = ["Here are the Pingdom checks:"]
+        lines = ["Here are our current Pingdom checks:"]
         for check in response.checks
           lines.push "    #{check.name}. Status: #{check.status}. Last response time: #{check.lastresponsetime}ms"
         msg.send lines.join('\n')
