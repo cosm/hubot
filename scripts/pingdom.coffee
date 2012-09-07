@@ -28,12 +28,12 @@ class PingdomClient
 
   start_watching: (msg) ->
     my = this
-    msg.send "Started watching Pingdom. Will check every #{@watch_interval / 1000 / 60} minutes."
+    msg.send "Started watching Pingdom. Will check every #{@watch_interval / 1000 / 60} minutes. I'm the chatty version."
     @intervalId = setInterval () ->
       my.request msg, 'checks', (response) ->
         for check in response.checks
-          if check.status.match /down/
-            msg.send "Hey @everyone, Pingdom is reporting a status of #{check.status} for check: #{check.name}."
+          #if check.status.match /down/
+          msg.send "Hey @everyone, Pingdom is reporting a status of #{check.status} for check: #{check.name}."
     , @watch_interval
 
   stop_watching: (msg) ->
