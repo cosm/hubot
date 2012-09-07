@@ -15,19 +15,21 @@
 #   smulube
 
 module.exports = (robot) ->
-  robot.respond /(show (me )?)?#(\d+)/, (msg) ->
+  robot.respond /show\sme\s#(\d+)/i, (msg) ->
     domain = process.env.HUBOT_AGILEISTA_DOMAIN
     api_key = process.env.HUBOT_AGILEISTA_API_KEY
 
-    story_id = escape(msg.match[3])
+    story_id = escape(msg.match[1])
 
     msg.http("https://#{domain}.agileista.com/user_stories/#{story_id}.json?key=#{api_key}")
       .get() (err, res, body) ->
         if res.statusCode == 200
           object = JSON.parse(body)
-          msg.send object.definition
-          msg.send "https://#{domain}.agileista.com/user_stories/#{story_id}"
+          lines = []
+          lines.push "    #{object.definition}"
           if object.story_points
-            msg.send "#{object.story_points} story points"
+            lines.push "    #{object.story_points} story points"
+          lines.push "    https://#{domain}.agileista.com/user_stories/#{story_id}"
+          msg.send lines.join('\n')
         else
-          msg.send 'Story not found.'
+          msg.send "Story ##{story_id} not found."
